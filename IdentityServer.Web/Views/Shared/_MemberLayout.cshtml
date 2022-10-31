@@ -1,0 +1,56 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Blarun.com</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" asp-action="@nameof(MemberController.Homepage)">Home</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-8">
+                @RenderBody()
+            </div>
+            <div class="col-md-4">
+                <h3>Menu</h3>
+                <div class="list-group">
+                    <a asp-action="@nameof(MemberController.ChangePassword)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-primary">
+                        Sifre degistirme
+                    </a>
+                    <a asp-action="@nameof(MemberController.UpdateInformations)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-primary">
+                        Kullanici bilgilerini guncelleme
+                    </a>
+                    <a asp-action="@nameof(HomeController.Logout)"
+                       asp-route-returnUrl="/@nameof(HomeController).Replace("Controller","")/@nameof(HomeController.Homepage)"
+                       asp-controller="@nameof(HomeController).Replace("Controller","")"
+                       class="list-group-item list-group-item-action list-group-item-primary">
+                        Cikis yap
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

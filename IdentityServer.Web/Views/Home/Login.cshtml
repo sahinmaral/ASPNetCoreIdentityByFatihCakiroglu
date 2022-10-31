@@ -1,0 +1,43 @@
+﻿@model UserLoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (ViewBag.PasswordResetInfo != null)
+{
+    <div class="alert alert-info my-2">
+        @ViewBag.PasswordResetInfo
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1 class="text-center">Giris Yap</h1>
+
+        <hr />
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RememberMe" class="control-label"></label>
+                <input type="checkbox" asp-for="RememberMe" />
+            </div>
+            <div class="form-group my-2">
+                <input type="submit" value="Login" class="btn btn-primary w-100" />
+            </div>
+        </form>
+        <a class="btn btn-link" asp-action="ResetPassword">Sifremi Unuttum</a>
+    </div>
+</div>
+
