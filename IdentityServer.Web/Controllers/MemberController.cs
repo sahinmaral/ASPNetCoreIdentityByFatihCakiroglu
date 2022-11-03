@@ -6,6 +6,8 @@ using Mapster;
 using IdentityServer.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IdentityServer.Web.Enums;
+using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 namespace IdentityServer.Web.Controllers
 {
@@ -16,7 +18,61 @@ namespace IdentityServer.Web.Controllers
         {
         }
 
-        public async Task<IActionResult> Homepage()
+        [Authorize(Roles = "Editor")]
+        public IActionResult EditorHomepage()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Manager")]
+        public IActionResult ManagerHomepage()
+        {
+            return View();
+        }
+
+
+        [Authorize(Policy = "IstanbulPolicy")]
+        public IActionResult PageWhereUserLivesIstanbul()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "AnkaraPolicy")]
+        public IActionResult PageWhereUserLivesAnkara()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "ViolencePolicy")]
+        public IActionResult PageWhereIncludesViolence()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> PremiumExchangePageRedirect()
+        {
+            bool result = User.HasClaim(x => x.Type == "PremiumExchangeExpireDate");
+
+            if (!result)
+            {
+                Claim exchangeClaim = new Claim("PremiumExchangeExpireDate", DateTime.Now.AddDays(30).ToString("MM.dd.yyyy"), ClaimValueTypes.String, "Internal");
+                await _userManager.AddClaimAsync(CurrentUser, exchangeClaim);
+
+                await _signInManager.SignOutAsync();
+                await _signInManager.SignInAsync(CurrentUser, true);
+            }
+
+
+            return RedirectToAction(nameof(PremiumExchangePage));
+        }
+
+        [Authorize(Policy = "PremiumExchangePolicy")]
+        public IActionResult PremiumExchangePage()
+        {
+            return View();
+        }
+
+        public IActionResult Homepage()
         {
             AppUser user = CurrentUser;
 
@@ -67,7 +123,7 @@ namespace IdentityServer.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateInformations()
+        public IActionResult UpdateInformations()
         {
             AppUser user = CurrentUser;
 
@@ -79,7 +135,7 @@ namespace IdentityServer.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateInformations(UpdateUserInformationsViewModel viewModel,IFormFile userPicture)
+        public async Task<IActionResult> UpdateInformations(UpdateUserInformationsViewModel viewModel, IFormFile userPicture)
         {
             ModelState.Remove(nameof(userPicture));
             ModelState.Remove(nameof(viewModel.Picture));
@@ -88,14 +144,14 @@ namespace IdentityServer.Web.Controllers
             {
                 AppUser user = CurrentUser;
 
-                if(userPicture != null && userPicture.Length > 0)
+                if (userPicture != null && userPicture.Length > 0)
                 {
                     string oldUserImageFileName = user.Picture;
 
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(userPicture.FileName);
 
 
-                    string path = Path.Combine(Directory.GetCurrentDirectory()+ @"\wwwroot\images\userPictures\"+ fileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory() + @"\wwwroot\images\userPictures\" + fileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
@@ -132,6 +188,8 @@ namespace IdentityServer.Web.Controllers
             ViewBag.Gender = new SelectList(Enum.GetNames(typeof(Gender)));
             return View(viewModel);
         }
+
+
 
     }
 }

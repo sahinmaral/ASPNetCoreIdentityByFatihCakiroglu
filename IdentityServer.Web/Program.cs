@@ -1,6 +1,10 @@
+using IdentityServer.Web.ClaimProvider;
+using IdentityServer.Web.Claims;
 using IdentityServer.Web.Controllers;
 using IdentityServer.Web.CustomValidation.MicrosoftIdentity;
 using IdentityServer.Web.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -73,8 +77,34 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.Cookie = cookieBuilder;
     opt.SlidingExpiration = true;
     opt.ExpireTimeSpan = TimeSpan.FromDays(1);
+    opt.AccessDeniedPath = $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.AccessDenied)}";
 });
 
+builder.Services.AddScoped<IClaimsTransformation, ClaimProvider>();
+builder.Services.AddSingleton<IAuthorizationHandler, PremiumExchangeHandler>();
+
+builder.Services.AddAuthorization(config =>
+{
+    config.AddPolicy("AnkaraPolicy", policy =>
+    {
+        policy.RequireClaim("city","Ankara");
+    });
+
+    config.AddPolicy("IstanbulPolicy", policy =>
+    {
+        policy.RequireClaim("city","Istanbul");
+    });
+
+    config.AddPolicy("ViolencePolicy", policy =>
+    {
+        policy.RequireClaim("violence",true.ToString());
+    });
+    config.AddPolicy("PremiumExchangePolicy", policy =>
+    {
+        policy.AddRequirements(new PremiumExchangeRequirement());
+    });
+
+});
 
 var app = builder.Build();
 

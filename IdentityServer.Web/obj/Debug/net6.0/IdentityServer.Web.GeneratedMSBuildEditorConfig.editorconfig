@@ -15,8 +15,36 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/CreateRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlUm9sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/GetClaims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0Q2xhaW1zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/GetRoles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0Um9sZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/GetUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0VXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/Homepage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSG9tZXBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/UpdateRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXBkYXRlUm9sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Admin/UpdateRolesToUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXBkYXRlUm9sZXNUb1VzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Home/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Home/Homepage.cshtml]
@@ -43,8 +71,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXENoYW5nZVBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/EditorHomepage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEVkaXRvckhvbWVwYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/Homepage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEhvbWVwYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/ManagerHomepage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXE1hbmFnZXJIb21lcGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/PageWhereIncludesViolence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFBhZ2VXaGVyZUluY2x1ZGVzVmlvbGVuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/PageWhereUserLivesAnkara.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFBhZ2VXaGVyZVVzZXJMaXZlc0Fua2FyYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/PageWhereUserLivesIstanbul.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFBhZ2VXaGVyZVVzZXJMaXZlc0lzdGFuYnVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/PremiumExchangePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXFByZW1pdW1FeGNoYW5nZVBhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sahin/OneDrive/Desktop/Files/GithubRepositories/ASPNetCoreIdentityByFatihCakiroglu/IdentityServer.Web/Views/Member/UpdateInformations.cshtml]

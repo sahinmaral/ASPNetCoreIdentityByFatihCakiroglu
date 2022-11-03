@@ -21,5 +21,9 @@ namespace IdentityServer.Web.ViewModels
         [MinLength(4, ErrorMessage = "Sifreniz en az 4 karakterli olmak zorundadir")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Sehir")]
+        [Display(Name = "Sehir")]
+        public string City { get; set; }
     }
 }

@@ -19,8 +19,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" asp-action="@nameof(MemberController.Homepage)">Home</a>
-
+                    <a class="nav-item nav-link" asp-controller="@nameof(MemberController).Replace("Controller","")" asp-action="@nameof(MemberController.Homepage)">Uye Anasayfa</a>
+                    <a class="nav-item nav-link" asp-controller="@nameof(AdminController).Replace("Controller","")" asp-action="@nameof(AdminController.Homepage)">Admin Anasayfa</a>
+                    <a class="nav-item nav-link" asp-controller="@nameof(MemberController).Replace("Controller","")" asp-action="@nameof(MemberController.EditorHomepage)">Editor Anasayfa</a>
+                    <a class="nav-item nav-link" asp-controller="@nameof(MemberController).Replace("Controller","")" asp-action="@nameof(MemberController.ManagerHomepage)">Manager Anasayfa</a>
                 </div>
             </div>
         </div>
@@ -34,6 +36,19 @@
             <div class="col-md-4">
                 <h3>Menu</h3>
                 <div class="list-group">
+                    <a asp-action="@nameof(MemberController.PageWhereUserLivesAnkara)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-danger">
+                        Ankara sayfa
+                    </a>
+                    <a asp-action="@nameof(MemberController.PageWhereUserLivesIstanbul)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-danger">
+                        Istanbul sayfa
+                    </a>
+                    <a asp-action="@nameof(MemberController.PageWhereIncludesViolence)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-danger">
+                        Siddet iceren sayfa
+                    </a>
+                    <a asp-action="@nameof(MemberController.PremiumExchangePageRedirect)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-danger">
+                        Premium Exchange sayfa
+                    </a>
+                    <hr/>
                     <a asp-action="@nameof(MemberController.ChangePassword)" asp-controller="@nameof(MemberController).Replace("Controller","")" class="list-group-item list-group-item-action list-group-item-primary">
                         Sifre degistirme
                     </a>

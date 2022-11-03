@@ -1,0 +1,63 @@
+﻿@model List<AppRole>
+
+@{
+    ViewData["Title"] = "GetRoles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if(TempData["Message"] != null){
+    <custom-alert message="@TempData["Message"]" priority="@TempData["Priority"]" return-url="@TempData["ReturnUrl"]"></custom-alert>
+}else{
+    <h1>Roller</h1>
+    <hr />
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Processes</th>
+            </tr>
+        </thead>
+        @if (Model.Count > 0)
+        {
+            <tbody>
+                @foreach (AppRole role in Model)
+                {
+                    <tr>
+                        <th scope="row">@role.Id</th>
+                        <td>@role.Name</td>
+                        <td>
+                            <a asp-action="@nameof(AdminController.UpdateRole)"
+                   asp-route-id="@role.Id"
+                   class="btn btn-warning">
+                                Rol Guncelle
+                            </a>
+                            <a asp-action="@nameof(AdminController.DeleteRole)"
+                   asp-route-id="@role.Id"
+                   class="btn btn-danger">
+                                Rol Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                <tr>
+                    <td colspan="3">Hicbir rol yoktur</td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+
+    <a asp-action="@nameof(AdminController.CreateRole)" class="btn btn-info">Rol Olustur</a>
+}
+
+
+
+
+
+

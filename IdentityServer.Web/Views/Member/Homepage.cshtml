@@ -1,7 +1,7 @@
 ﻿@model UserProfileViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Homepage";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th>Dogum Tarihi</th>
-                <td>@Model.BirthDate.Value.ToShortDateString()</td>
+                <td>@Model.BirthDate?.ToShortDateString()</td>
             </tr>
             <tr>
                 <th>Telefon no</th>

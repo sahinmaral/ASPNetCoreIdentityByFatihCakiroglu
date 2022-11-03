@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "k+rS7rKiF3rwK/wUEVW8wvgU7/VxPcZc/40gTipjrpw=",
+  "Hash": "cJT3kvbN1NfOYdOfHJwj2Spdw1ELcU+H1kd4be3s8ao=",
   "Source": "IdentityServer.Web",
   "BasePath": "_content/IdentityServer.Web",
   "Mode": "Default",
@@ -51,12 +51,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\images\\userPictures\\6f5df0b5-fbf3-49e4-9422-be19774ffcb7.png",
+      "Identity": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\images\\userPictures\\defaultUserPicture.png",
       "SourceId": "IdentityServer.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\",
       "BasePath": "_content/IdentityServer.Web",
-      "RelativePath": "images/userPictures/6f5df0b5-fbf3-49e4-9422-be19774ffcb7.png",
+      "RelativePath": "images/userPictures/defaultUserPicture.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,24 +65,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\userPictures\\6f5df0b5-fbf3-49e4-9422-be19774ffcb7.png"
-    },
-    {
-      "Identity": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\images\\userPictures\\B32E2A6B-FF7F-4F5D-A227-A646034A9839.png",
-      "SourceId": "IdentityServer.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\",
-      "BasePath": "_content/IdentityServer.Web",
-      "RelativePath": "images/userPictures/B32E2A6B-FF7F-4F5D-A227-A646034A9839.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\userPictures\\B32E2A6B-FF7F-4F5D-A227-A646034A9839.png"
+      "OriginalItemSpec": "wwwroot\\images\\userPictures\\defaultUserPicture.png"
     },
     {
       "Identity": "C:\\Users\\sahin\\OneDrive\\Desktop\\Files\\GithubRepositories\\ASPNetCoreIdentityByFatihCakiroglu\\IdentityServer.Web\\wwwroot\\js\\site.js",

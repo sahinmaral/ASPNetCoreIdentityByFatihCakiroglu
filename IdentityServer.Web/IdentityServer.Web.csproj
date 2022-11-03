@@ -25,7 +25,13 @@
 
   <ItemGroup>
     <Folder Include="Constants\" />
-    <Folder Include="wwwroot\images\userPictures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\_AdminLayout.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

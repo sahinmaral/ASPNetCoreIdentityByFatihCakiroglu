@@ -20,7 +20,7 @@ namespace IdentityServer.Web.ViewModels
 
         [DataType(DataType.Date)]
         [Display(Name = "Dogum tarihi")]
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public Gender Gender { get; set; }
 

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "AccessDenied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-danger">
+    @ViewBag.Message
+</div>
+
+<a asp-action="@nameof(HomeController.Homepage)" class="btn btn-link">Geri Don</a>
+
+

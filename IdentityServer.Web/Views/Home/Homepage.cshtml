@@ -1,11 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-@inject IViewLocalizer _viewLocalizer
+@inject IViewLocalizer ViewLocalizer
 
 @{
     ViewData["Title"] = "Homepage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@_viewLocalizer["WelcomeToHomepage"]</h1>
+if(@TempData["Message"] != null){
+<custom-alert message="@TempData["Message"]" priority="@TempData["Priority"]" return-url="@TempData["ReturnUrl"]"></custom-alert>
+}else{
+    <h1>@ViewLocalizer["WelcomeToHomepage"]</h1>
+}
+
+
+
 
