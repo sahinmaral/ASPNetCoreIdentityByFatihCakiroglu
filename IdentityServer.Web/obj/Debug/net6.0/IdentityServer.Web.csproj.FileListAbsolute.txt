@@ -565,6 +565,6 @@ C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFat
 C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\obj\Debug\net6.0\IdentityServer.Web.pdb
 C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\obj\Debug\net6.0\IdentityServer.Web.genruntimeconfig.cache
 C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\obj\Debug\net6.0\ref\IdentityServer.Web.dll
-C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\bin\Debug\net6.0\Constants\mailServiceConfiguration.json
 C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\bin\Debug\net6.0\Mapster.dll
 C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\bin\Debug\net6.0\Mapster.Core.dll
+C:\Users\sahin\OneDrive\Desktop\Files\GithubRepositories\ASPNetCoreIdentityByFatihCakiroglu\IdentityServer.Web\bin\Debug\net6.0\libman.json

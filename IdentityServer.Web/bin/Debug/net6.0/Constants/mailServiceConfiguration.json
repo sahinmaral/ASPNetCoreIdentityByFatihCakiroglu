@@ -1,7 +1,0 @@
-{
-  "Email": "aspnetcoremvcblogproject@hotmail.com",
-  "Password": "ASPNETCOREMVC1234",
-  "Host": "smtp.outlook.com",
-  "Port": 587,
-  "IsSSLEnabled": true
-}

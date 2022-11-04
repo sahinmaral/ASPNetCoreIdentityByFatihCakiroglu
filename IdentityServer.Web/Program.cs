@@ -2,6 +2,7 @@ using IdentityServer.Web.ClaimProvider;
 using IdentityServer.Web.Claims;
 using IdentityServer.Web.Controllers;
 using IdentityServer.Web.CustomValidation.MicrosoftIdentity;
+using IdentityServer.Web.Helpers;
 using IdentityServer.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +33,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var culture = new List<CultureInfo> {
                 new CultureInfo(trTRCulture),
-                new CultureInfo("en-US"),        
+                new CultureInfo("en-US"),
     };
     options.DefaultRequestCulture = new RequestCulture(culture: trTRCulture, uiCulture: trTRCulture);
     options.SupportedCultures = culture;
@@ -50,6 +52,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 {
     opt.Password.RequiredLength = 4;
     opt.User.RequireUniqueEmail = true;
+    opt.User.AllowedUserNameCharacters =
+            "abcçdefgðhijklmnoöpqrsþtuüvwxyzABCÇDEFGÐHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789-._";
 })
     .AddPasswordValidator<CustomPasswordValidator>()
     .AddUserValidator<CustomUserValidator>()
@@ -59,7 +63,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 
 CookieBuilder cookieBuilder = new CookieBuilder();
 cookieBuilder.Name = "MyBlog";
-cookieBuilder.HttpOnly = false; 
+cookieBuilder.HttpOnly = false;
 
 
 // CSRF 
@@ -87,17 +91,17 @@ builder.Services.AddAuthorization(config =>
 {
     config.AddPolicy("AnkaraPolicy", policy =>
     {
-        policy.RequireClaim("city","Ankara");
+        policy.RequireClaim("city", "Ankara");
     });
 
     config.AddPolicy("IstanbulPolicy", policy =>
     {
-        policy.RequireClaim("city","Istanbul");
+        policy.RequireClaim("city", "Istanbul");
     });
 
     config.AddPolicy("ViolencePolicy", policy =>
     {
-        policy.RequireClaim("violence",true.ToString());
+        policy.RequireClaim("violence", true.ToString());
     });
     config.AddPolicy("PremiumExchangePolicy", policy =>
     {
@@ -105,6 +109,30 @@ builder.Services.AddAuthorization(config =>
     });
 
 });
+
+
+builder.Services.AddAuthentication()
+    .AddFacebook(config =>
+    {
+        var facebookConfigModel = ThirdPartyIdentityHelper.GetConfigurationModel("Facebook");
+
+        config.AppId = facebookConfigModel.Id;
+        config.AppSecret = facebookConfigModel.Secret;
+
+    })
+    .AddGoogle(config =>
+    {
+        var googleConfigurationModel = ThirdPartyIdentityHelper.GetConfigurationModel("Google");
+        config.ClientId = googleConfigurationModel.Id;
+        config.ClientSecret = googleConfigurationModel.Secret;
+    })
+    .AddMicrosoftAccount(config =>
+    {
+        var microsoftConfigurationModel = ThirdPartyIdentityHelper.GetConfigurationModel("Microsoft");
+        config.ClientId = microsoftConfigurationModel.Id;
+        config.ClientSecret = microsoftConfigurationModel.Secret;
+    })
+    ;
 
 var app = builder.Build();
 
@@ -138,3 +166,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Homepage}/{id?}");
 
 app.Run();
+

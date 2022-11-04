@@ -1,10 +1,10 @@
-﻿using IdentityServer.Web.Helper;
-using IdentityServer.Web.Helpers;
+﻿using IdentityServer.Web.Helpers;
 using IdentityServer.Web.Models;
 using IdentityServer.Web.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
+using System.Security.Claims;
 
 namespace IdentityServer.Web.Controllers
 {
@@ -173,14 +173,7 @@ namespace IdentityServer.Web.Controllers
         [HttpGet]
         public IActionResult ResetPassword()
         {
-            string passwordResetInfo = "Yeni sifre belirlemek icin kayitli e-posta adresinizi yaziniz.Sifre degistirme linkini e-posta adresinize gonderecegiz.";
-
-            if (TempData["PasswordResetInfo"] == null)
-            {
-                TempData["PasswordResetInfo"] = passwordResetInfo;
-            }
-
-            return View();
+            return CreateCustomAlert("Yeni sifre belirlemek icin kayitli e-posta adresinizi yaziniz.Sifre degistirme linkini e-posta adresinize gonderecegiz", "Danger", $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Login)}");
         }
 
         [HttpPost]
@@ -296,6 +289,133 @@ namespace IdentityServer.Web.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult LoginWithFacebook(string returnUrl)
+        {
+            string redirectUrl = Url.Action(nameof(ResponseFromThirdPartyIdentity), "Home", new
+            {
+                returnUrl = returnUrl
+            });
+
+            AuthenticationProperties property = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", redirectUrl);
+            return new ChallengeResult("Facebook", property);
+        }
+
+        public IActionResult LoginWithGoogle(string returnUrl)
+        {
+            string redirectUrl = Url.Action(nameof(ResponseFromThirdPartyIdentity), "Home", new
+            {
+                returnUrl = returnUrl
+            });
+
+            AuthenticationProperties property = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+            return new ChallengeResult("Google", property);
+        }
+
+        public IActionResult LoginWithMicrosoft(string returnUrl)
+        {
+            string redirectUrl = Url.Action(nameof(ResponseFromThirdPartyIdentity), "Home", new
+            {
+                returnUrl = returnUrl
+            });
+
+            AuthenticationProperties property = _signInManager.ConfigureExternalAuthenticationProperties("Microsoft", redirectUrl);
+            return new ChallengeResult("Microsoft", property);
+        }
+
+        public async Task<IActionResult> ResponseFromThirdPartyIdentity(string? returnUrl="/Home/Homepage")
+        {
+            ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
+            if(info == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            else
+            {
+                Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
+                if (signInResult.Succeeded)
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    AppUser user = new AppUser();
+                    user.Email = info.Principal.FindFirst(ClaimTypes.Email).Value;
+
+                    string externalUserId = info.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                    if (info.Principal.HasClaim(x=>x.Type == ClaimTypes.Name))
+                    {
+                        string username = info.Principal.FindFirst(ClaimTypes.Name).Value;
+                        username = username.Replace(" ", "-").ToLower()+"-"+externalUserId;
+                        user.UserName = username;
+                    }
+                    else
+                    {
+                        user.UserName = info.Principal.FindFirst(ClaimTypes.Email).Value;
+                    }
+
+                    // If this user is already signed in and logged with same email
+                    // -> We have to allow to login this user 
+
+                    AppUser loggedUser = await _userManager.FindByEmailAsync(user.Email);
+
+                    if(loggedUser == null)
+                    {
+                        IdentityResult identityResult = await _userManager.CreateAsync(user);
+                        if (identityResult.Succeeded)
+                        {
+                            // Login for third-party identities
+
+                            IdentityResult loginIdentityResult = await _userManager.AddLoginAsync(user, info);
+
+                            if (loginIdentityResult.Succeeded)
+                            {
+                                //await _signInManager.SignInAsync(user, true);
+
+                                // To identify that user logged in from facebook
+
+                                await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
+
+                                return Redirect(returnUrl);
+                            }
+                            else
+                            {
+                                return CreateCustomAlert("Bir hata meydana geldi. Lutfen tekrar deneyiniz", "Danger", $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Login)}");
+                            }
+                        }
+                        else
+                        {
+                            string errorContent = "";
+                            List<string> errors = identityResult.Errors.Select(x => x.Description).ToList();
+                            foreach (var error in errors)
+                            {
+                                errorContent += error;
+                                errorContent += "\n";
+                            }
+
+                            return CreateCustomAlert(errorContent, "Danger", $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Login)}");
+                        }
+                    }
+                    else
+                    {
+                        IdentityResult loginIdentityResult = await _userManager.AddLoginAsync(loggedUser, info);
+                        if (loginIdentityResult.Succeeded)
+                        {
+
+                            await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
+
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return CreateCustomAlert("Bir hata meydana geldi. Lutfen tekrar deneyiniz", "Danger", $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Login)}");
+                        }
+                    }
+                    
+                }
+            }
         }
     }
 }

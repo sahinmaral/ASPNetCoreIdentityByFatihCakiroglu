@@ -8,5 +8,11 @@ namespace IdentityServer.Web.Models
         public string Picture { get; set; }
         public DateTime BirthDate { get; set; }
         public int Gender { get; set; }
+
+        public AppUser()
+        {
+            City = "";
+            Picture = "";
+        }
     }
 }

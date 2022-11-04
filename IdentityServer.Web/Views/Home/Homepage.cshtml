@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-if(@TempData["Message"] != null){
+@if(TempData["Message"] != null){
 <custom-alert message="@TempData["Message"]" priority="@TempData["Priority"]" return-url="@TempData["ReturnUrl"]"></custom-alert>
 }else{
     <h1>@ViewLocalizer["WelcomeToHomepage"]</h1>

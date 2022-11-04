@@ -5,10 +5,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,8 +18,14 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" asp-action="@nameof(HomeController.Homepage)">Home</a>
-                    <a class="nav-item nav-link" asp-action="@nameof(HomeController.SignUp)">Uye Ol</a>
-                    <a class="nav-item nav-link" asp-action="@nameof(HomeController.Login)">Giris Yap</a>
+                    @if(User.Identity.IsAuthenticated){
+                        <a class="nav-item nav-link"
+                       asp-action="@nameof(MemberController.Homepage)"
+                       asp-controller="@nameof(MemberController).Replace("Controller","")">Uye Anasayfa</a>
+                    }else{
+                        <a class="nav-item nav-link" asp-action="@nameof(HomeController.SignUp)">Uye Ol</a>
+                        <a class="nav-item nav-link" asp-action="@nameof(HomeController.Login)">Giris Yap</a>
+                    }
                     
                 </div>
             </div>
@@ -31,6 +35,12 @@
     <div class="container">
         @RenderBody()
     </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+
 
 </body>
 </html>
