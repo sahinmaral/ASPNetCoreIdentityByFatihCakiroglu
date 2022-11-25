@@ -137,17 +137,31 @@ namespace IdentityServer.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateInformations(UpdateUserInformationsViewModel viewModel, IFormFile userPicture)
         {
+            AppUser user = CurrentUser;
+
             ModelState.Remove(nameof(userPicture));
             ModelState.Remove(nameof(viewModel.Picture));
 
             if (ModelState.IsValid)
-            {
-                AppUser user = CurrentUser;
+            {  
+                if(viewModel.PhoneNumber != await _userManager.GetPhoneNumberAsync(user))
+                {
+                    if (_userManager.Users.Any(x => x.PhoneNumber == viewModel.PhoneNumber))
+                    {
+                        ModelState.AddModelError("", "Boyle bir telefon numarasi ile kayitli kullanici bulunmaktadir");
+                        ViewBag.Gender = new SelectList(Enum.GetNames(typeof(Gender)));
+                        return View(viewModel);
+                    }
+
+                }
+
+                if(user.Picture != string.Empty)
+                {
+                    System.IO.File.Delete(Directory.GetCurrentDirectory() + @"\wwwroot\images\userPictures\" + user.Picture);
+                }
 
                 if (userPicture != null && userPicture.Length > 0)
                 {
-                    string oldUserImageFileName = user.Picture;
-
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(userPicture.FileName);
 
 
@@ -157,13 +171,13 @@ namespace IdentityServer.Web.Controllers
                     {
                         await userPicture.CopyToAsync(stream);
                         user.Picture = fileName;
-                    }
-
-                    System.IO.File.Delete(Directory.GetCurrentDirectory() + @"\wwwroot\images\userPictures\" + oldUserImageFileName);
+                    }                 
                 }
 
                 user.UserName = viewModel.UserName;
+
                 user.PhoneNumber = viewModel.PhoneNumber;
+
                 user.Email = viewModel.Email;
 
                 user.City = viewModel.City;

@@ -17,7 +17,7 @@ namespace IdentityServer.Web.Helpers
             }
         }
 
-        public static void EmailConfirmationSendEmail(string link, string email)
+        public async static Task EmailConfirmationSendEmail(string link, string email)
         {
             EmailServiceConfigurationModel config = AssignEmailConfigurationAndReturn();
 
@@ -38,7 +38,7 @@ namespace IdentityServer.Web.Helpers
             mail.Body += $"<a href='{link}'>Hesap dogrulama linki</a>";
             mail.IsBodyHtml = true;
 
-            smtpClient.Send(mail);
+            await smtpClient.SendMailAsync(mail);
 
         }
     }

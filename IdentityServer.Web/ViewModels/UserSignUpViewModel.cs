@@ -9,6 +9,7 @@ namespace IdentityServer.Web.ViewModels
         public string Username { get; set; }
 
         [Display(Name = "Telefon No")]
+        [RegularExpression("^(0(\\d{3}) (\\d{3}) (\\d{2}) (\\d{2}))$",ErrorMessage ="Telefon numarasi dogru formatta degil")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email adresi gereklidir")]

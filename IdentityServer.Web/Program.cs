@@ -1,17 +1,14 @@
 using IdentityServer.Web.ClaimProvider;
 using IdentityServer.Web.Claims;
 using IdentityServer.Web.Controllers;
-using IdentityServer.Web.CustomValidation.MicrosoftIdentity;
-using IdentityServer.Web.Helpers;
+using IdentityServer.Web.Extensions;
 using IdentityServer.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,41 +45,12 @@ builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
 });
 
-builder.Services.AddIdentity<AppUser, AppRole>(opt =>
-{
-    opt.Password.RequiredLength = 4;
-    opt.User.RequireUniqueEmail = true;
-    opt.User.AllowedUserNameCharacters =
-            "abcçdefgðhijklmnoöpqrsþtuüvwxyzABCÇDEFGÐHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789-._";
-})
-    .AddPasswordValidator<CustomPasswordValidator>()
-    .AddUserValidator<CustomUserValidator>()
-    .AddErrorDescriber<CustomIdentityErrorDescriber>()
-    .AddEntityFrameworkStores<AppIdentityDbContext>()
-    .AddDefaultTokenProviders();
 
-CookieBuilder cookieBuilder = new CookieBuilder();
-cookieBuilder.Name = "MyBlog";
-cookieBuilder.HttpOnly = false;
+builder.Services.Configure<EmailServiceConfigurationModel>(builder.Configuration.GetSection("Email"));
 
+builder.Services.AddIdentityWithConfigurations();
 
-// CSRF 
-cookieBuilder.SameSite = SameSiteMode.Lax;
-
-// HTTPS -> Always
-// HTTP -> SameAsRequest
-// No Configuration -> None
-cookieBuilder.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-    opt.LoginPath = $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Login)}";
-    opt.LogoutPath = $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.Logout)}";
-    opt.Cookie = cookieBuilder;
-    opt.SlidingExpiration = true;
-    opt.ExpireTimeSpan = TimeSpan.FromDays(1);
-    opt.AccessDeniedPath = $"/{nameof(HomeController).Replace("Controller", "")}/{nameof(HomeController.AccessDenied)}";
-});
+builder.Services.ConfigureCookieOptions();
 
 builder.Services.AddScoped<IClaimsTransformation, ClaimProvider>();
 builder.Services.AddSingleton<IAuthorizationHandler, PremiumExchangeHandler>();
@@ -111,28 +79,7 @@ builder.Services.AddAuthorization(config =>
 });
 
 
-builder.Services.AddAuthentication()
-    .AddFacebook(config =>
-    {
-        var facebookConfigModel = ThirdPartyIdentityHelper.GetConfigurationModel("Facebook");
-
-        config.AppId = facebookConfigModel.Id;
-        config.AppSecret = facebookConfigModel.Secret;
-
-    })
-    .AddGoogle(config =>
-    {
-        var googleConfigurationModel = ThirdPartyIdentityHelper.GetConfigurationModel("Google");
-        config.ClientId = googleConfigurationModel.Id;
-        config.ClientSecret = googleConfigurationModel.Secret;
-    })
-    .AddMicrosoftAccount(config =>
-    {
-        var microsoftConfigurationModel = ThirdPartyIdentityHelper.GetConfigurationModel("Microsoft");
-        config.ClientId = microsoftConfigurationModel.Id;
-        config.ClientSecret = microsoftConfigurationModel.Secret;
-    })
-    ;
+builder.Services.AddAuthenticationFromThirdPartyApplications();
 
 var app = builder.Build();
 

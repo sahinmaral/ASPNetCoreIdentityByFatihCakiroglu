@@ -51,6 +51,11 @@ namespace IdentityServer.Web.Controllers
 
         public async Task<IActionResult> SignUp(UserSignUpViewModel viewModel)
         {
+            if(_userManager.Users.Any(x => x.PhoneNumber == viewModel.PhoneNumber))
+            {
+                ModelState.AddModelError("", "Boyle bir telefon numarasi ile kayitli kullanici bulunmaktadir");
+            }
+
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser();
@@ -74,7 +79,7 @@ namespace IdentityServer.Web.Controllers
                     }, protocol: HttpContext.Request.Scheme);
 
 
-                    EmailConfirmationHelper.EmailConfirmationSendEmail(link, user.Email);
+                    await EmailConfirmationHelper.EmailConfirmationSendEmail(link, user.Email);
 
                     return RedirectToAction(nameof(Login));
                 }
@@ -130,8 +135,10 @@ namespace IdentityServer.Web.Controllers
 
                         if (TempData["ReturnUrl"] != null)
                             return Redirect(TempData["ReturnUrl"].ToString());
+                        else
+                            return RedirectToAction(nameof(MemberController.Homepage), nameof(MemberController).Replace("Controller", ""));
 
-                        return RedirectToAction(nameof(MemberController.Homepage), nameof(MemberController).Replace("Controller", ""));
+
                     }
 
                     else
